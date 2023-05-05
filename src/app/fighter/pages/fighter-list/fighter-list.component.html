@@ -1,7 +1,7 @@
 <div class="container">
     <h2>Fighter list</h2>
     <div class="flex-grow-1 p-1">
-        <table mat-table [dataSource]="fighters$ | async" class="mat-elevation-z8">
+        <table mat-table [dataSource]="fighters$" class="mat-elevation-z8">
 
             <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef>First Name</th>
@@ -20,7 +20,7 @@
 
             <ng-container matColumnDef="organisation">
                 <th mat-header-cell *matHeaderCellDef>Organisation</th>
-                <td mat-cell *matCellDef="let fighter">{{ fighter.organisations.name }}</td>
+                <td mat-cell *matCellDef="let fighter">{{ fighter.organisations }}</td>
             </ng-container>
 
             <ng-container matColumnDef="DateOfBirth">
@@ -28,12 +28,18 @@
                 <td mat-cell *matCellDef="let fighter">{{ fighter.birth }}</td>
             </ng-container>
 
-            <button mat-icon-button color="primary" (click)="openFighterForm(fighter)">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="delete(fighter.id); $event.stopPropagation()">
-                <mat-icon>delete</mat-icon>
-            </button>
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef> update </th>
+                <td mat-cell *matCellDef="let fighter" (click)="openFighterForm(fighter); $event.stopPropagation()">
+                    <mat-icon>edit</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> delete </th>
+                <td mat-cell *matCellDef="let element" (click)="delete(element.id); $event.stopPropagation()">
+                </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="showFighterDetails(row.id)"></tr>

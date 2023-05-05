@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericPopupComponent } from 'src/app/shared/components/generic-popup/generic-popup.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FighterFormComponent } from '../../components/fighter-form/fighter-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fighter-list',
@@ -22,7 +23,7 @@ export class FighterListComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private fighterService: FighterService, private dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private fighterService: FighterService, private dialog: MatDialog, private _snackBar: MatSnackBar, private router: Router) { }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -36,13 +37,13 @@ export class FighterListComponent implements OnInit, OnDestroy {
   fetchData() {
     this.fighters$ = this.fighterService.get();
   }
-  openFighterForm(fighter: Fighter) {
+  openFighterForm(fighter?: Fighter) {
     const dialogRef = this.dialog.open(FighterFormComponent, {
       height: '85%',
       width: '60%',
       data: {
         isCreateForm: fighter ? false : true,
-        fighter: fighter ? fighter : null
+        fighter: fighter ? fighter : undefined
       }
     });
 
@@ -87,6 +88,9 @@ export class FighterListComponent implements OnInit, OnDestroy {
             });
         }
       });
+  }
+  showFighterDetails(id: number) {
+    this.router.navigate(['/fighters/' + id])
   }
 
 }
