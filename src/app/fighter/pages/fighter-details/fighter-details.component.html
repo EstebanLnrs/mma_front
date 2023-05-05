@@ -1,0 +1,17 @@
+<button mat-raised-button (click)="goBack()">Back</button>
+<mat-card class="custom-mat-card">
+    <mat-card-header>
+        <mat-card-title>Fighter Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-6">
+                <p><strong>First Name:</strong> {{ (fighter$ | async)?.firstName }}</p>
+                <p><strong>Surname:</strong> {{ (fighter$ | async)?.surname }}</p>
+                <p><strong>Last Name:</strong> {{ (fighter$ | async)?.lastName }}</p>
+                <p><strong>Date de naissance:</strong> {{ (fighter$ | async)?.dateOfBirth }}</p>
+                <p><strong>Organisation:</strong> {{ (fighter$ | async)?.organisation }}</p>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
